@@ -6,8 +6,6 @@ import org.springframework.data.redis.core.RedisHash;
 
 @RedisHash("UrlMapping")
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UrlMapping {

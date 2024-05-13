@@ -9,6 +9,10 @@ import com.mercadolibre.urlshortener.util.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class UrlShorteningService {
 
@@ -36,6 +40,11 @@ public class UrlShorteningService {
 
     public void deleteUrl(String shortUrl) {
         repository.deleteById(shortUrl);
+    }
+
+    public List<UrlMapping> getAllUrls() {
+        return StreamSupport.stream(repository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 }
 
