@@ -1,5 +1,6 @@
 package com.mercadolibre.urlshortener.config;
 
+import com.mercadolibre.urlshortener.exception.DatabaseConnectionException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -14,16 +15,28 @@ public class RedisConfig {
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
-        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration("redis", 6379);
-        config.setPassword(RedisPassword.of("pass123"));
-        return new LettuceConnectionFactory(config);
+        try{
+            RedisStandaloneConfiguration config = new RedisStandaloneConfiguration("redis", 6379);
+            config.setPassword(RedisPassword.of("pass123"));
+            return new LettuceConnectionFactory(config);
+        }catch(Exception e){
+            throw new DatabaseConnectionException("Error al intentar conectar a Redis: " + e.getMessage());
+
+        }
+
     }
 
     @Bean
     public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<?, ?> template = new RedisTemplate<>();
-        template.setConnectionFactory(connectionFactory);
+        try{
+            RedisTemplate<?, ?> template = new RedisTemplate<>();
+            template.setConnectionFactory(connectionFactory);
 
-        return template;
+            return template;
+        }catch(Exception e){
+            throw new DatabaseConnectionException("Error al configurar redis template: " + e.getMessage());
+
+        }
+
     }
 }

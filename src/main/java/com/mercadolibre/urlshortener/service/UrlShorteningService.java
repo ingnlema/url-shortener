@@ -1,9 +1,11 @@
 package com.mercadolibre.urlshortener.service;
 
+import com.mercadolibre.urlshortener.exception.UrlNotFoundException;
 import com.mercadolibre.urlshortener.model.UrlMapping;
 import com.mercadolibre.urlshortener.repository.UrlMappingRepository;
 import com.mercadolibre.urlshortener.util.Base62Encoder;
 import com.mercadolibre.urlshortener.util.UniqueIdGenerator;
+import com.mercadolibre.urlshortener.util.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class UrlShorteningService {
     }
 
     public UrlMapping createShortUrl(String originalUrl) {
+        UrlValidator.validateUrl(originalUrl);
         long uniqueId = idGenerator.generateUniqueId();
         String encodedId = Base62Encoder.encode(uniqueId);
         UrlMapping urlMapping = new UrlMapping(encodedId, originalUrl);
@@ -27,7 +30,7 @@ public class UrlShorteningService {
     }
 
     public String getOriginalUrl(String shortUrl) {
-        UrlMapping urlMapping = repository.findById(shortUrl).orElseThrow(() -> new RuntimeException("URL not found"));
+        UrlMapping urlMapping = repository.findById(shortUrl).orElseThrow(() -> new UrlNotFoundException("URL no encontrada."));
         return urlMapping.getOriginalUrl();
     }
 
