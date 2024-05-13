@@ -27,8 +27,9 @@ public class UrlController {
         return ResponseEntity.ok(originalUrl);
     }
 
-    @GetMapping("/ping")
-    public ResponseEntity<String> ping() {
-        return ResponseEntity.ok("pong");
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUrl(@PathVariable String id) {
+        urlService.deleteUrl(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -30,5 +30,9 @@ public class UrlShorteningService {
         UrlMapping urlMapping = repository.findById(shortUrl).orElseThrow(() -> new RuntimeException("URL not found"));
         return urlMapping.getOriginalUrl();
     }
+
+    public void deleteUrl(String shortUrl) {
+        repository.deleteById(shortUrl);
+    }
 }
 
