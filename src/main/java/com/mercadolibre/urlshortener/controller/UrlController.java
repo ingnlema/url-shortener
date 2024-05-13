@@ -3,12 +3,14 @@ package com.mercadolibre.urlshortener.controller;
 import com.mercadolibre.urlshortener.model.UrlMapping;
 import com.mercadolibre.urlshortener.model.dto.UrlDto;
 import com.mercadolibre.urlshortener.service.UrlShorteningService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/url")
+@Slf4j
 public class UrlController {
 
     @Autowired
