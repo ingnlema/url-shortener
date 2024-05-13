@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      SPRING_REDIS_PASSWORD: pass123
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    command: redis-server --requirepass pass123
+    ports:
+      - "6379:6379"
+
+
+networks:
+  default:
+    driver: bridge

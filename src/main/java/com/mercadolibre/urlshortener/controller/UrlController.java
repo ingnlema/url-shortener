@@ -1,6 +1,7 @@
 package com.mercadolibre.urlshortener.controller;
 
 import com.mercadolibre.urlshortener.model.UrlMapping;
+import com.mercadolibre.urlshortener.model.dto.UrlDto;
 import com.mercadolibre.urlshortener.service.UrlShorteningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,18 @@ public class UrlController {
     private UrlShorteningService urlService;
 
     @PostMapping("/shorten")
-    public UrlMapping shortenUrl(@RequestBody String originalUrl) {
-        return urlService.createShortUrl(originalUrl);
+    public UrlMapping shortenUrl(@RequestBody UrlDto urlDto) {
+        return urlService.createShortUrl(urlDto.getUrl());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getOriginalUrl(@PathVariable String id) {
         String originalUrl = urlService.getOriginalUrl(id);
         return ResponseEntity.ok(originalUrl);
+    }
+
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return ResponseEntity.ok("pong");
     }
 }
