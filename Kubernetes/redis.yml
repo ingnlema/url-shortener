@@ -20,11 +20,11 @@ spec:
             - containerPort: 6379
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "250m"
+              memory: "2Gi"
+              cpu: "2"
             limits:
-              memory: "1Gi"
-              cpu: "500m"
+              memory: "4Gi"
+              cpu: "4"
           env:
             - name: REDIS_PASSWORD
               valueFrom:

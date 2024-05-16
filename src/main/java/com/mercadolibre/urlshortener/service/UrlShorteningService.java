@@ -8,6 +8,8 @@ import com.mercadolibre.urlshortener.util.UniqueIdGenerator;
 import com.mercadolibre.urlshortener.util.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.cache.annotation.Cacheable;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,8 +35,10 @@ public class UrlShorteningService {
         return repository.save(urlMapping);
     }
 
+    @Cacheable(cacheNames = "urlCache", key = "#shortUrl")
     public String getOriginalUrl(String shortUrl) {
-        UrlMapping urlMapping = repository.findById(shortUrl).orElseThrow(() -> new UrlNotFoundException("URL no encontrada."));
+        UrlMapping urlMapping = repository.findById(shortUrl)
+                .orElseThrow(() -> new UrlNotFoundException("URL no encontrada."));
         return urlMapping.getOriginalUrl();
     }
 
@@ -42,9 +46,5 @@ public class UrlShorteningService {
         repository.deleteById(shortUrl);
     }
 
-    public List<UrlMapping> getAllUrls() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
-    }
 }
 

@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6-load-test
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      containers:
+        - name: k6
+          image: nlema2411/k6-test:latest
+          imagePullPolicy: Always
+          env:
+            - name: BASE_URL
+              value: "http://url-shortener-service.default.svc.cluster.local/api/url/4m"
+      restartPolicy: Never
+
+
