@@ -45,17 +45,11 @@ public class UrlController {
             @ApiResponse(responseCode = "200", description = "URL original encontrada"),
             @ApiResponse(responseCode = "404", description = "URL no encontrada")
     })
-//    @GetMapping("/url/{shortUrl}")
-//    public ResponseEntity<UrlDto> getOriginalUrl(@PathVariable String shortUrl) {
-//        String originalUrl = urlShorteningService.getOriginalUrl(shortUrl);
-//        UrlDto urlDto = new UrlDto(originalUrl);
-//        return ResponseEntity.ok(urlDto);
-//    }
     @GetMapping("/{shortUrl}")
-    public ResponseEntity<UrlMapping> getOriginalUrl(@PathVariable String shortUrl) {
+    public ResponseEntity<UrlDto> getOriginalUrl(@PathVariable String shortUrl) {
         String originalUrl = urlShorteningService.getOriginalUrl(shortUrl);
-        UrlMapping urlMapping = new UrlMapping(shortUrl, originalUrl);
-        return ResponseEntity.ok(urlMapping);
+        UrlDto urlDto = new UrlDto(originalUrl);
+        return ResponseEntity.ok(urlDto);
     }
     @Operation(summary = "Elimina una URL corta")
     @ApiResponses(value = {
@@ -67,15 +61,15 @@ public class UrlController {
         urlShorteningService.deleteUrl(shortUrl);
         return ResponseEntity.ok().build();
     }
-//    @GetMapping("/url/stats/{shortUrl}")
-//    public ResponseEntity<UrlStatsDto> getUrlStats(@PathVariable String shortUrl) {
-//        UrlMapping urlMapping = urlShorteningService.getStats(shortUrl);
-//        UrlStatsDto stats = new UrlStatsDto(
-//                urlMapping.getAccessCount(),
-//                urlMapping.getFirstAccess(),
-//                urlMapping.getLastAccess()
-//        );
-//        return ResponseEntity.ok(stats);
-//    }
+    @GetMapping("/stats/{shortUrl}")
+    public ResponseEntity<UrlStatsDto> getUrlStats(@PathVariable String shortUrl) {
+        UrlMapping urlMapping = urlShorteningService.getStats(shortUrl);
+        UrlStatsDto stats = new UrlStatsDto(
+                urlMapping.getAccessCount(),
+                urlMapping.getFirstAccess(),
+                urlMapping.getLastAccess()
+        );
+        return ResponseEntity.ok(stats);
+    }
 
 }

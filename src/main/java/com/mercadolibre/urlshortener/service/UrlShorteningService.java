@@ -37,7 +37,7 @@ public class UrlShorteningService {
 
     @Cacheable(cacheNames = "urlCache", key = "#shortUrl")
     public String getOriginalUrl(String shortUrl) {
-        //updateUrlAccessStats(shortUrl); //Async
+        updateUrlAccessStats(shortUrl); //Async
         UrlMapping urlMapping = repository.findById(shortUrl)
                 .orElseThrow(() -> new UrlNotFoundException("URL no encontrada."));
         return urlMapping.getOriginalUrl();
