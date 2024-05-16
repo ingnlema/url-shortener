@@ -55,7 +55,7 @@ public class UrlShorteningService {
 
     @Async
     public void updateUrlAccessStats(String shortUrl) {
-        UrlMapping urlMapping = repository.findById(shortUrl).orElseThrow(() -> new RuntimeException("URL not found"));
+        UrlMapping urlMapping = repository.findById(shortUrl).orElseThrow(() -> new UrlNotFoundException("URL not found"));
         urlMapping.setAccessCount(urlMapping.getAccessCount() + 1);
         LocalDateTime now = LocalDateTime.now();
         if (urlMapping.getFirstAccess() == null) {
@@ -65,7 +65,7 @@ public class UrlShorteningService {
         repository.save(urlMapping);
     }
     public UrlMapping getStats(String shortUrl) {
-        return repository.findById(shortUrl).orElseThrow(() -> new RuntimeException("URL not found"));
+        return repository.findById(shortUrl).orElseThrow(() -> new UrlNotFoundException("URL not found"));
     }
 
 }
