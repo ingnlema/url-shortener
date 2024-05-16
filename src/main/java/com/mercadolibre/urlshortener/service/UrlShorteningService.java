@@ -7,6 +7,7 @@ import com.mercadolibre.urlshortener.util.Base62Encoder;
 import com.mercadolibre.urlshortener.util.UniqueIdGenerator;
 import com.mercadolibre.urlshortener.util.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.cache.annotation.Cacheable;
@@ -47,6 +48,7 @@ public class UrlShorteningService {
         return urlMapping.getOriginalUrl();
     }
 
+    @CacheEvict(cacheNames = "urlCache", key = "#shortUrl")
     public void deleteUrl(String shortUrl) {
         repository.deleteById(shortUrl);
     }
