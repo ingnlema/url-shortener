@@ -1,6 +1,7 @@
 package com.mercadolibre.urlshortener.controller;
 
 import com.mercadolibre.urlshortener.model.UrlMapping;
+import com.mercadolibre.urlshortener.model.dto.ShortUrlDto;
 import com.mercadolibre.urlshortener.model.dto.UrlDto;
 import com.mercadolibre.urlshortener.model.dto.UrlStatsDto;
 import com.mercadolibre.urlshortener.service.UrlShorteningService;
@@ -33,9 +34,10 @@ public class UrlController {
             @ApiResponse(responseCode = "400", description = "Solicitud inválida")
     })
     @PostMapping("/shorten")
-    public ResponseEntity<UrlMapping> createShortUrl(@RequestBody UrlDto urlDto) {
+    public ResponseEntity<ShortUrlDto> createShortUrl(@RequestBody UrlDto urlDto) {
         UrlMapping urlMapping = urlShorteningService.createShortUrl(urlDto.getUrl());
-        return ResponseEntity.ok(urlMapping);
+        ShortUrlDto shortUrlDto = new ShortUrlDto(urlMapping.getId());
+        return ResponseEntity.ok(shortUrlDto);
     }
 
     @Operation(summary = "Obtiene la URL original a partir de una URL corta")
@@ -59,15 +61,15 @@ public class UrlController {
         urlShorteningService.deleteUrl(shortUrl);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/url/stats/{shortUrl}")
-    public ResponseEntity<UrlStatsDto> getUrlStats(@PathVariable String shortUrl) {
-        UrlMapping urlMapping = urlShorteningService.getStats(shortUrl);
-        UrlStatsDto stats = new UrlStatsDto(
-                urlMapping.getAccessCount(),
-                urlMapping.getFirstAccess(),
-                urlMapping.getLastAccess()
-        );
-        return ResponseEntity.ok(stats);
-    }
+//    @GetMapping("/url/stats/{shortUrl}")
+//    public ResponseEntity<UrlStatsDto> getUrlStats(@PathVariable String shortUrl) {
+//        UrlMapping urlMapping = urlShorteningService.getStats(shortUrl);
+//        UrlStatsDto stats = new UrlStatsDto(
+//                urlMapping.getAccessCount(),
+//                urlMapping.getFirstAccess(),
+//                urlMapping.getLastAccess()
+//        );
+//        return ResponseEntity.ok(stats);
+//    }
 
 }
