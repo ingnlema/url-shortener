@@ -45,11 +45,17 @@ public class UrlController {
             @ApiResponse(responseCode = "200", description = "URL original encontrada"),
             @ApiResponse(responseCode = "404", description = "URL no encontrada")
     })
-    @GetMapping("/url/{shortUrl}")
-    public ResponseEntity<UrlDto> getOriginalUrl(@PathVariable String shortUrl) {
+//    @GetMapping("/url/{shortUrl}")
+//    public ResponseEntity<UrlDto> getOriginalUrl(@PathVariable String shortUrl) {
+//        String originalUrl = urlShorteningService.getOriginalUrl(shortUrl);
+//        UrlDto urlDto = new UrlDto(originalUrl);
+//        return ResponseEntity.ok(urlDto);
+//    }
+    @GetMapping("/{shortUrl}")
+    public ResponseEntity<UrlMapping> getOriginalUrl(@PathVariable String shortUrl) {
         String originalUrl = urlShorteningService.getOriginalUrl(shortUrl);
-        UrlDto urlDto = new UrlDto(originalUrl);
-        return ResponseEntity.ok(urlDto);
+        UrlMapping urlMapping = new UrlMapping(shortUrl, originalUrl);
+        return ResponseEntity.ok(urlMapping);
     }
     @Operation(summary = "Elimina una URL corta")
     @ApiResponses(value = {
