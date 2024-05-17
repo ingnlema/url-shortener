@@ -3,10 +3,20 @@ version: '3.9'
 
 services:
   redis:
-    image: redis:latest
-    command: redis-server --requirepass pass123
+    image: redis:7.0.5
+    command: >
+      redis-server --requirepass pass123
+      --appendonly yes
+      --appendfsync everysec
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --dir /data
+      --dbfilename dump.rdb
     ports:
       - "6379:6379"
+    volumes:
+      - redis-data:/data
 
 
   app:
@@ -23,7 +33,7 @@ services:
       - ./logs:/app/logs
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.52.0
     container_name: prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
@@ -32,17 +42,19 @@ services:
 
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:10.0.1
     container_name: grafana
     ports:
       - "3000:3000"
     volumes:
       - grafana-storage:/var/lib/grafana
 
+volumes:
+  redis-data:
+    driver: local
+  grafana-storage:
+
 networks:
   default:
     driver: bridge
-
-volumes:
-  grafana-storage:
 
