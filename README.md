@@ -37,10 +37,9 @@ Este proyecto utiliza una arquitectura moderna diseñada para ser escalable, efi
 El sistema está construido sobre Spring Boot, lo cual facilita la creación de microservicios robustos con capacidades de autoconfiguración y una amplia gama de funcionalidades integradas. La lógica del negocio se maneja a través de varios componentes:
 
 **Controllers:** Manejan las solicitudes HTTP, permitiendo a los usuarios crear, recuperar, borrar y obtener estadísticas de URLs cortas.
-Services: Encapsulan la lógica de negocio principal, incluyendo la generación de URLs cortas y la recuperación de URLs largas correspondientes.
-Repositories: Abstraen el acceso a la base de datos, en este caso, Redis, para el almacenamiento de la relación entre URLs cortas y largas.
-Base de Datos
-Redis se utiliza como la base de datos principal debido a su rendimiento superior en operaciones de lectura/escritura, lo que es esencial para cumplir con los requisitos de alta velocidad de respuesta del servicio. Esto es particularmente importante para cumplir con el objetivo de que el 90% de las solicitudes se completen en menos de 10 ms.
+**Services:** Encapsulan la lógica de negocio principal, incluyendo la generación de URLs cortas y la recuperación de URLs largas correspondientes.
+**Repositories:** Abstraen el acceso a la base de datos, en este caso, Redis, para el almacenamiento de la relación entre URLs cortas y largas.
+**Base de Datos:** Redis se utiliza como la base de datos principal debido a su rendimiento superior en operaciones de lectura/escritura, lo que es esencial para cumplir con los requisitos de alta velocidad de respuesta del servicio. Esto es particularmente importante para cumplir con el objetivo de que el 90% de las solicitudes se completen en menos de 10 ms.
 
 ### Caché
 Se implementa una caché en memoria para reducir la latencia y las cargas de la base de datos, mejorando el tiempo de respuesta para las URLs frecuentemente accedidas y las estadísticas.
