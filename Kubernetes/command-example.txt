@@ -1,0 +1,37 @@
+# Eliminar recursos del archivo deployment.yml
+kubectl delete -f deployment.yml
+
+# Eliminar recursos del archivo grafana.yml
+kubectl delete -f grafana.yml
+
+# Eliminar recursos del archivo persistent-volume.yml
+kubectl delete -f persistent-volume.yml
+
+# Eliminar recursos del archivo prometheus.yml
+kubectl delete -f prometheus.yml
+
+# Eliminar recursos del archivo redis-secret.yml
+kubectl delete -f redis-secret.yml
+
+# Eliminar recursos del archivo redis.yml
+kubectl delete -f redis.yml
+
+# Aplicar recursos del archivo redis-secret.yml
+kubectl apply -f redis-secret.yml
+
+# Aplicar recursos del archivo persistent-volume.yml
+kubectl apply -f persistent-volume.yml
+
+# Aplicar recursos del archivo redis.yml
+kubectl apply -f redis.yml
+
+# Aplicar recursos del archivo prometheus.yml
+kubectl apply -f prometheus.yml
+
+# Aplicar recursos del archivo grafana.yml
+kubectl apply -f grafana.yml
+
+# Aplicar recursos del archivo deployment.yml
+kubectl apply -f deployment.yml
+
+

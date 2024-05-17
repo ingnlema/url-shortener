@@ -1,0 +1,11 @@
+# Prueba de rendimiento enfocada en el tiempo de respuesta
+k6 run --env URL=http://localhost:8080/api/url/u max10ms.js
+
+# Prueba de rendimiento enfocada en el tiempo de respuesta
+k6 run --env URL=http://localhost:8080/api/url/u max15ms.js
+
+# Prueba de rendimiento enfocada en la cantidad de respuestas exitosas
+k6 run --env URL=http://localhost:8080/api/url/u reqSuccessful.js
+
+# Prueba de carga intensa hasta 50,000 solicitudes en 1 minuto
+k6 run --env URL=http://35.188.177.159:80/api/url/u concurrent50.js
