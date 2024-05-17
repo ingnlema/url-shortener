@@ -1,0 +1,13 @@
+package com.mercadolibre.urlshortener.model.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class PerformanceMeasureDto {
+    private long executionTime;
+    private String additionalInfo;
+}

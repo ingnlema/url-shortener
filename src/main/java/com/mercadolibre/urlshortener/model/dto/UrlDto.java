@@ -4,8 +4,6 @@ import lombok.*;
 
 
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UrlDto {
