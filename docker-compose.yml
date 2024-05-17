@@ -9,18 +9,6 @@ services:
       - "6379:6379"
 
 
-  app:
-    image: nlema2411/url-shortener:latest
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_REDIS_HOST: redis
-      SPRING_REDIS_PORT: 6379
-      SPRING_REDIS_PASSWORD: pass123
-    depends_on:
-      - redis
-    volumes:
-      - ./logs:/app/logs
 
 
 networks:

@@ -8,16 +8,26 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.beans.factory.annotation.Value;
 
 
 @Configuration
 public class RedisConfig {
 
+    @Value("${spring.redis.host}")
+    private String redisHost;
+
+    @Value("${spring.redis.port}")
+    private int redisPort;
+
+    @Value("${spring.redis.password}")
+    private String redisPassword;
+
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
         try{
-            RedisStandaloneConfiguration config = new RedisStandaloneConfiguration("redis", 6379);
-            config.setPassword(RedisPassword.of("pass123"));
+            RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisHost, redisPort);
+            config.setPassword(RedisPassword.of(redisPassword));
             return new LettuceConnectionFactory(config);
         }catch(Exception e){
             throw new DatabaseConnectionException("Error al intentar conectar a Redis: " + e.getMessage());

@@ -6,6 +6,7 @@ import com.mercadolibre.urlshortener.repository.UrlMappingRepository;
 import com.mercadolibre.urlshortener.util.Base62Encoder;
 import com.mercadolibre.urlshortener.util.UniqueIdGenerator;
 import com.mercadolibre.urlshortener.util.UrlValidator;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.scheduling.annotation.Async;
@@ -14,6 +15,9 @@ import org.springframework.cache.annotation.Cacheable;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 @Service
