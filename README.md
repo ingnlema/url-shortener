@@ -98,22 +98,18 @@ Cabe destacar que al ser un projecto con spring-boot muchas de estas implementac
    ```bash
    git clone https://github.com/ingnlema/url-shortener
    ```
-
-2. **Construir el proyecto**:
-
-   ```bash
-   mvn clean install
-   ```
    
 **Nota:** Antes de ejecutar la aplicación, asegúrate de ajustar el archivo `docker-compose.yml` para construir la imagen desde el código fuente local en lugar de utilizar una imagen pre-construida desde Docker Hub. Esto es necesario para incorporar cualquier cambio que hayas realizado en el código.
 
-3. **Construir y desplegar con Docker**:
+2. **Construir y desplegar con Docker**:
 
    ```bash
    docker-compose up --build
    ```
+   
+**Nota:** Antes de aplicar los maniefiestos debes estar conectado a un cluster de kubernetes previamente configurado.
 
-4. **Despliegue en Kubernetes**:
+3. **Despliegue en Kubernetes**:
 
    ```bash
    cd kubernetes
@@ -175,6 +171,7 @@ Alta Disponibilidad: Al distribuir los datos entre varios nodos, el clúster pue
 Tolerancia a Fallos: Con la replicación de datos entre los nodos, un clúster de Redis puede manejar fallos de nodos sin pérdida de datos. Los nodos secundarios pueden tomar automáticamente el relevo si el nodo principal falla.
 
 Escalabilidad: Un clúster permite escalar la capacidad de almacenamiento y el rendimiento más allá de las limitaciones de una única máquina, distribuyendo la carga entre varios nodos.
+
 Particionamiento Automático de Datos: Redis Cluster automáticamente particiona los datos entre los nodos, lo que mejora el rendimiento y optimiza el uso de recursos.
 
 **Estado**: Pendiente.
