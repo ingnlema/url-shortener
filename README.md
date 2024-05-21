@@ -115,8 +115,6 @@ Cabe destacar que al ser un projecto con spring-boot muchas de estas implementac
 
    ```bash
    cd kubernetes
-   kubectl delete -f redis-secret.yml
-   kubectl delete -f redis.yml
    kubectl apply -f redis-secret.yml
    kubectl apply -f persistent-volume.yml
    kubectl apply -f redis.yml
