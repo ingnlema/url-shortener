@@ -104,6 +104,8 @@ Cabe destacar que al ser un projecto con spring-boot muchas de estas implementac
    ```bash
    mvn clean install
    ```
+   
+**Nota:** Antes de ejecutar la aplicación, asegúrate de ajustar el archivo `docker-compose.yml` para construir la imagen desde el código fuente local en lugar de utilizar una imagen pre-construida desde Docker Hub. Esto es necesario para incorporar cualquier cambio que hayas realizado en el código.
 
 3. **Construir y desplegar con Docker**:
 
